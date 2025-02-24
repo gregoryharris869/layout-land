@@ -1,0 +1,234 @@
+:root {
+  --clr-text: hsl(204, 100%, 1%);
+  --clr-body: hsl(204, 20%, 15%);
+  --clr-primary: hsl(196, 62%, 30%);
+  --clr-secondary: hsl(311, 62%, 66%);
+  --clr-accent: hsl(351, 62%, 41%);
+  /* fonts */
+  --ff-base: "Work Sans", serif;
+  --ff-accent: "Merriweather", serif;
+  /* font size */
+  --fs-300: clamp(1.125rem, 1.0815rem + 0.2174vw, 1.25rem);
+  --fs-400: clamp(1.35rem, 1.2048rem + 0.7261vw, 1.7675rem);
+  --fs-500: clamp(1.62rem, 1.3142rem + 1.5291vw, 2.4992rem);
+  --fs-600: clamp(1.944rem, 1.391rem + 2.7651vw, 3.5339rem);
+  --fs-700: clamp(2.3328rem, 1.4061rem + 4.6334vw, 4.997rem);
+  --fs-800: clamp(2.7994rem, 1.3154rem + 7.4198vw, 7.0657rem);
+  /* space */
+  --space-xs: clamp(0.875rem, 0.8533rem + 0.1087vw, 0.9375rem);
+  --space-s: clamp(1.125rem, 1.0815rem + 0.2174vw, 1.25rem);
+  --space-m: clamp(1.6875rem, 1.6223rem + 0.3261vw, 1.875rem);
+  --space-l: clamp(2.25rem, 2.163rem + 0.4348vw, 2.5rem);
+  --space-xl: clamp(3.375rem, 3.2446rem + 0.6522vw, 3.75rem);
+  --space-2xl: clamp(4.5rem, 4.3261rem + 0.8696vw, 5rem);
+  --space-3xl: clamp(6.75rem, 6.4891rem + 1.3043vw, 7.5rem);
+  /* one-up pairs */
+  --space-xs-s: clamp(0.875rem, 0.7446rem + 0.6522vw, 1.25rem);
+  --space-s-m: clamp(1.125rem, 0.8641rem + 1.3043vw, 1.875rem);
+  --space-m-l: clamp(1.6875rem, 1.4049rem + 1.413vw, 2.5rem);
+  --space-l-xl: clamp(2.25rem, 1.7283rem + 2.6087vw, 3.75rem);
+  --space-xl-2xl: clamp(3.375rem, 2.8098rem + 2.8261vw, 5rem);
+  --space-2xl-3xl: clamp(4.5rem, 3.4565rem + 5.2174vw, 7.5rem);
+  --tracking: -0.05ch;
+  --tracking-s: -0.075ch;
+
+
+ 
+}
+
+@media (prefers-color-scheme: dark) {
+  :root{
+    --clr-text: hsl(0, 0%, 94%);
+    --clr-body: hsl(204, 20%, 85%);
+    --clr-background: hsl(26, 80%, 4%);
+    --clr-primary: hsl(196, 62%, 70%);
+    --clr-secondary: hsl(311, 62%, 34%);
+    --clr-accent: hsl(351, 62%, 59%);
+  }
+}
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  color-scheme: light dark;
+}
+
+/* Remove default margin in favour of better control in authored CSS */
+body, h1, h2, h3, h4, p,
+figure, blockquote, dl, dd {
+  margin-block-end: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core body defaults */
+
+
+/* Set shorter line heights on headings and interactive elements */
+h1, h2, h3, h4,
+button, input, label {
+  line-height: 1.1;
+}
+
+/* Balance text wrapping on headings */
+h1, h2,
+h3, h4 {
+  text-wrap: balance;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input, button,
+textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Make sure text areas without a rows attribute are not tiny */
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 5ex;
+}
+
+body {
+  font-size: var(--fs-400);
+  font-family: var(--ff-accent);
+  color: var(--clr-body);
+  letter-spacing: var(--tracking);
+
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: var(--tracking-s);
+  line-height: 1.1;
+  font-family: var(--ff-base);
+  max-width: 20ch;
+}
+
+h1 {
+  font-size: var(--fs-800);
+  color: var(--clr-primary);
+}
+
+h2 {
+  font-size: var(--fs-700);
+  color: var(--clr-primary);
+}
+
+h3 {
+  font-size: var(--fs-600);
+  color: var(--clr-primary);
+  
+}
+
+blockquote:not([class]),
+li,
+p {
+  max-width: 65ch;
+}
+
+blockquote:not([class]) {
+  font-family: var(--ff-accent);
+  font-size: var(--fs-300);
+}
+
+blockquote:not([class]) p:last-of-type {
+  font-family: var(--ff-base);
+  font-size: var(--fs-400);
+  font-weight: 400;
+}
+
+svg {
+  flex: none;
+  height: 2ex;
+  width: auto;
+}
+
+[role="list"] {
+  padding: 0;
+}
+
+a {
+  color: currentcolor;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+:focus {
+  outline: 2px solid;
+  outline-offset: 0.3ch;
+}
+
+:target {
+  scroll-margin-top: 2ex;
+}
+
+main:focus {
+  outline: none;
+}
+
+::selection {
+  background: var(--clr-background);
+  color: var(--clr-text);
+}
+
+
+
+.wrapper {
+  width: min(100% - 3rem, 55ch);
+  margin-inline:auto
+}
+
+.flow > * + * {
+  margin-top: 1em;
+}
+
+.features a {
+  color: var(--clr-accent);
+  text-decoration: none;
+}
+
+.features a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 0.08ex;
+  text-underline-offset: 0.2ex;
+  color:var(--clr-secondary)
+}
+
+
