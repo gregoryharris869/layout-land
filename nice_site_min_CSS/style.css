@@ -32,6 +32,9 @@
   --tracking: -0.05ch;
   --tracking-s: -0.075ch;
 
+  --gutter: var(--space-s-m);
+  --border-radius: var(--size-step-1);
+
 
  
 }
@@ -231,4 +234,29 @@ main:focus {
   color:var(--clr-secondary)
 }
 
+.services {
+  --grid-placement: auto-fit;
+  --grid-min-item-size: clamp(16rem, 33%, 20rem);
+  --gutter: var(--space-l-xl);
+  --flow-space: var(--space-s);
+}
+
+.grid {
+  display: grid;
+  gap: var(--gutter, var(--space-s-l));
+  grid-template-columns: repeat(
+    var(--grid-placement, auto-fill),
+    minmax(var(--grid-min-item-size, 16rem), 1fr)
+  );
+}
+
+.grid[data-rows="masonry"] {
+  align-items: start;
+  grid-template-rows: masonry;
+}
+
+.grid[data-layout="50-50"] {
+  --grid-placement: auto-fit;
+  --grid-min-item-size: clamp(16rem, 50vw, 26rem);
+}
 
