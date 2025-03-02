@@ -128,7 +128,7 @@ body {
   font-size: var(--fs-400);
   font-family: var(--ff-accent);
   color: var(--clr-body);
-  letter-spacing: var(--tracking);
+  letter-spacing: var(--tracking-s);
 
   line-height: 1.5;
 }
@@ -162,6 +162,7 @@ blockquote:not([class]),
 li,
 p {
   max-width: 65ch;
+  
 }
 
 blockquote:not([class]) {
@@ -222,9 +223,12 @@ main:focus {
   margin-top: 1em;
 }
 
-.features a {
-  color: var(--clr-accent);
+.features  {
+ list-style-type: square;
+  a {
+    color: var(--clr-accent);
   text-decoration: none;
+  } 
 }
 
 .features a:hover {
@@ -234,14 +238,18 @@ main:focus {
   color:var(--clr-secondary)
 }
 
-.services {
+strong {
+  color: var(--clr-secondary);
+}
+
+/* .services {
   --grid-placement: auto-fit;
   --grid-min-item-size: clamp(16rem, 33%, 20rem);
   --gutter: var(--space-l-xl);
   --flow-space: var(--space-s);
-}
+} */
 
-.grid {
+/* .grid {
   display: grid;
   gap: var(--gutter, var(--space-s-l));
   grid-template-columns: repeat(
@@ -258,5 +266,5 @@ main:focus {
 .grid[data-layout="50-50"] {
   --grid-placement: auto-fit;
   --grid-min-item-size: clamp(16rem, 50vw, 26rem);
-}
+} */
 
