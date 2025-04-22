@@ -1,14 +1,14 @@
 @font-face {
   font-family: "DM Sans";
   font-weight: 400 500;
-  src: url("../assets/fonts/DMSans-VariableFont_opsz,wght.ttf");
+  src: url("assets/fonts/DMSans-VariableFont_opsz,wght.ttf");
 }
 
 @font-face {
   font-family: "DM Sans";
   font-style: italic;
   font-weight: 400 500;
-  src: url("../assets/fonts/DMSans-Italic-VariableFont_opsz,wght.ttf");
+  src: url("assets/fonts/DMSans-Italic-VariableFont_opsz,wght.ttf");
 }
 
 :root {
@@ -103,11 +103,17 @@
     background-color:var(--bento-card-surface,var(--white));
     padding: var(--bento-card-padding, 2rem);
     border-radius: var(--bento-card-border-radius, 0.5rem);
+
+   
   }
 
   .bento-grid> :nth-child(1) {
+    --heading-font-size: var(--fs-xl);
+    --heading-span-foreground: var(--accent-base);
     --bento-card-foreground: var(--white);
     --bento-card-surface: var(--primary-base);
+
+    
     
   }
 
