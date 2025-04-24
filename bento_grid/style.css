@@ -104,6 +104,12 @@
     padding: var(--bento-card-padding, 2rem);
     border-radius: var(--bento-card-border-radius, 0.5rem);
 
+    display: grid;
+    gap: var(--bento-card-gap, 2rem);
+    align-content: var(--bento-card-vertical-alignment, start);
+    justify-items: var(--bento-card-horizontal-alignment, start);
+    text-align: var(--bento-card-horizontal-alignment, start);
+
    
   }
 
@@ -112,7 +118,7 @@
     --heading-span-foreground: var(--accent-base);
     --bento-card-foreground: var(--white);
     --bento-card-surface: var(--primary-base);
-
+    --bento-card-horizontal-alignment: center;
     
     
   }
