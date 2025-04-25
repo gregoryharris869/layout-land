@@ -28,7 +28,6 @@
 }
 
 @layer reset {
-
   *,
   *::before,
   *::after {
@@ -98,9 +97,9 @@
     gap: 24px;
   }
 
-  .bento-grid>* {
+  .bento-grid > * {
     color: var(--bento-card-foreground, var(--black));
-    background-color:var(--bento-card-surface,var(--white));
+    background-color: var(--bento-card-surface, var(--white));
     padding: var(--bento-card-padding, 2rem);
     border-radius: var(--bento-card-border-radius, 0.5rem);
 
@@ -109,20 +108,35 @@
     align-content: var(--bento-card-vertical-alignment, start);
     justify-items: var(--bento-card-horizontal-alignment, start);
     text-align: var(--bento-card-horizontal-alignment, start);
-
-   
   }
 
-  .bento-grid> :nth-child(1) {
+  .bento-grid img {
+    max-width: var(--bento-card-image-width, 100%);
+    width: var(--bento-card-image-width, 100%);
+    order: var(--bento-card-image-order);
+  }
+
+  .bento-grid > :nth-child(1) {
     --heading-font-size: var(--fs-xl);
     --heading-span-foreground: var(--accent-base);
     --bento-card-foreground: var(--white);
     --bento-card-surface: var(--primary-base);
+    --bento-card-padding: 3rem;
     --bento-card-horizontal-alignment: center;
-    
-    
+    --bento-card-image-width: 70%;
+    --bento-card-gap: 1rem;
   }
 
+  .bento-grid > :nth-child(2) {
+    --bento-card-image-order: -1;
+
+    /* fixing shadow issue in asset */
+    > img {
+      filter: drop-shadow(0 0 1rem hsl(0 0% 0% / 0.25));
+      border-radius: 100vw;
+      /* box-shadow: 0 0 1rem hsl(0 0% 0%); */
+    }
+  }
 }
 
 @layer utilities {
