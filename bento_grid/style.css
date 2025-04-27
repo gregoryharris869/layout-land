@@ -20,7 +20,7 @@
   --off-white: hsl(0, 0%, 96%);
   --black: hsl(0, 0%, 7%);
 
-  --fs-reg: 1.25rem;
+  --fs-reg: 1.75rem;
 
   --fs-md: 2.25rem;
   --fs-lg: 3rem;
@@ -102,7 +102,7 @@
     background-color: var(--bento-card-surface, var(--white));
     padding: var(--bento-card-padding, 2rem);
     border-radius: var(--bento-card-border-radius, 0.5rem);
-
+    overflow: clip;
     display: grid;
     gap: var(--bento-card-gap, 2rem);
     align-content: var(--bento-card-vertical-alignment, start);
@@ -137,7 +137,31 @@
       /* box-shadow: 0 0 1rem hsl(0 0% 0%); */
     }
   }
-}
+
+  .bento-grid > :nth-child(3) {
+    --bento-card-surface: var(--accent-base);
+    --bento-card-image-width: 75%;
+    > img {
+      margin-bottom: -4rem;
+    }
+  }
+
+  .bento-grid > :nth-child(4) {
+    --bento-card-surface: var(--primary-base);
+  }
+
+  .bento-grid > :nth-child(5)
+ {
+    --bento-card-surface: var(--accent-subdued);
+    --bento-card-foreground: var(--black);
+    --bento-card-image-width: 100%;
+  }
+
+  .bento-grid > :nth-child(6) {
+    --bento-card-surface: var(--white);
+    --bento-card-foreground: var(--black);
+    --bento-card-image-width: 100%;
+  }
 
 @layer utilities {
   .visually-first {
