@@ -20,7 +20,7 @@
   --off-white: hsl(0, 0%, 96%);
   --black: hsl(0, 0%, 7%);
 
-  --fs-reg: 1.75rem;
+  --fs-reg: 1.5rem;
 
   --fs-md: 2.25rem;
   --fs-lg: 3rem;
@@ -97,9 +97,22 @@
     gap: 24px;
     margin-inline: auto;
     max-inline-size: 1200px;
+    grid-template-areas:
+      "one"
+      "two"
+      "three"
+      "four"
+      "five"
+      "six"
+      "seven"
+      "eight";
 
     @media (width > 960px) {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-areas:
+        "seven one one four"
+        "seven two three four"
+        "eight two three four"
+        "eight six five five";
     }
   }
 
@@ -131,6 +144,7 @@
     --bento-card-horizontal-alignment: center;
     --bento-card-image-width: 70%;
     --bento-card-gap: 1rem;
+    grid-area: one;
   }
 
   .bento-grid > :nth-child(2) {
@@ -140,8 +154,8 @@
     > img {
       filter: drop-shadow(0 0 1rem hsl(0 0% 0% / 0.25));
       border-radius: 100vw;
-      /* box-shadow: 0 0 1rem hsl(0 0% 0%); */
     }
+    grid-area: two;
   }
 
   .bento-grid > :nth-child(3) {
@@ -150,11 +164,13 @@
     > img {
       margin-bottom: -4rem;
     }
+    grid-area: three;
   }
 
   .bento-grid > :nth-child(4) {
     --bento-card-surface: var(--primary-subdued);
     --bento-card-horizontal-alignment: center;
+    grid-area: four;
   }
 
   .bento-grid > :nth-child(5) {
@@ -163,6 +179,14 @@
     --bento-card-horizontal-alignment: center;
     --bento-card-image-width: 75%;
     --bento-card-image-order: -1;
+    grid-area: five;
+    @media (width > 960px) {
+      --bento-card-gap: 1rem;
+      --bento-card-image-width: 100%;
+      --bento-card-vertical-alignment: center;
+      --bento-card-horizontal-alignment: start;
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
   .bento-grid > :nth-child(6) {
@@ -171,6 +195,7 @@
     --heading-span-font-size: var(--fs-reg);
 
     --bento-card-image-width: 60%;
+    grid-area: six;
   }
 
   .bento-grid > :nth-child(7) {
@@ -178,11 +203,13 @@
     --bento-card-image-width: 60%;
     --heading-span-style: italic;
     --heading-span-foreground: var(--primary-base);
+    grid-area: seven;
   }
 
   .bento-grid > :nth-child(8) {
     --bento-card-surface: var(--accent-base);
     --bento-card-image-width: 60%;
+    grid-area: eight;
   }
 }
 
