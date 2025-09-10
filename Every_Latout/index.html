@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Stack</title>
+</head>
+<style>
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  body {
+    font-family: Helvetica, Arial, sans-serif;
+    --border: 4px solid black;
+    --padding: calc(1rem * 1.4);
+    --border-thick: 4px;
+    padding: 2rem;
+    margin: 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .wrapper {
+    border-width: var(--border-thick);
+    border: var(--border-thick) solid;
+    padding: var(--padding);
+  }
+
+  /* Box */
+
+  .box {
+    display: block;
+    padding: var(--padding);
+    border-width: var(--border-thick);
+    border: var(--border-thick) solid;
+    /* ↓ For high contrast mode */
+    outline: var(--border-thick) solid transparent;
+    outline-offset: calc(var(--border-thick) * -1);
+  }
+
+  /* The Stack
+-----------------------------------------------------------------------*/
+  .stack {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    --space: 1.5rem;
+  }
+
+  .stack>*+* {
+    margin-top: var(--space);
+  }
+
+  /* The Center
+-----------------------------------------------------------------------*/
+  .center {
+    box-sizing: content-box;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 60ch;
+    /* ↓ Intrinsic Centering: That is, centering elements based on their natural, content-based widths. */
+    /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+
+    /* ↓ Gutters (i.e. 1em) */
+    /* padding-left: 1em;
+  padding-right: 1em; */
+  }
+
+  /* The Cluster
+-----------------------------------------------------------------------*/
+  .cluster {
+    --space: 1rem;
+    overflow: hidden;
+  }
+
+  .cluster>* {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin: calc(var(--space) / 2 * -1);
+  }
+
+  .cluster>*>* {
+    margin: calc(var(--space) / 2);
+  }
+
+  /* The Sidebar
+-----------------------------------------------------------------------*/
+
+  /* ↓ targets the intermediary wrapper */
+  .sidebar {
+    overflow: hidden;
+    --space: 1em;
+    --side-width: 15rem;
+    --content-min: 50%;
+  }
+
+  .sidebar>* {
+    display: flex;
+    flex-wrap: wrap;
+    margin: calc((var(--space) / 2) * -1);
+  }
+
+  .sidebar>*>* {
+    flex-basis: var(--side-width);
+    flex-grow: 1;
+    /* ↓ applies to both elements */
+    margin: calc((var(--space) / 2));
+  }
+
+  /* ↓ if is a right sidebar (side: right) -> :first-child */
+  .sidebar>*> :last-child {
+    /* ↓ grow from nothing */
+    flex-basis: 0;
+    flex-grow: 999;
+    min-width: calc(var(--content-min) - var(--space));
+  }
+
+  /* The Switcher
+-----------------------------------------------------------------------*/
+  .switcher {
+    --threshold: 30rem;
+    --space: 1rem;
+    --large: calc(1 + 7 / 10);
+  }
+
+  .switcher>* {
+    display: flex;
+    flex-wrap: wrap;
+    /* ↓ Multiply by -1 to make negative */
+    margin: calc(var(--space) / 2 * -1);
+  }
+
+  .switcher>*>* {
+    flex-grow: 1;
+    flex-basis: calc((var(--threshold) - (100% - var(--space))) * 999);
+    /* ↓ Half the value to each element, combining to make the whole */
+    margin: calc(var(--space) / 2);
+  }
+
+  /* .switcher > * > :nth-child(1) {
+  flex-grow: var(--large);
+} */
+
+  .switcher>*> :nth-last-child(n + 4),
+  .switcher>*> :nth-last-child(n + 4)~* {
+    flex-basis: 100%;
+  }
+
+  /* The Cover
+-----------------------------------------------------------------------*/
+  .cover {
+    --padding: 1rem;
+    --min-height: 50vh;
+    --space: 1rem;
+    display: flex;
+    flex-direction: column;
+    min-height: var(--min-height);
+    /* ↓ noPad padding: 0; */
+    padding: var(--padding);
+  }
+
+  .cover>* {
+    margin-top: var(--space);
+    margin-bottom: var(--space);
+  }
+
+  /* ↓ h2 is the centered selector but can be any selector */
+  .cover> :first-child:not(h2) {
+    margin-top: 0;
+  }
+
+  .cover> :last-child:not(h2) {
+    margin-bottom: 0;
+  }
+
+  /* ↓ h2 is the centered selector but can be any selector */
+  .cover>h2 {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  /* The Grid
+-----------------------------------------------------------------------*/
+  .grid {
+    --min: 15rem;
+    --space: 1rem;
+    align-content: start;
+    display: grid;
+    gap: var(--space);
+    grid-template-columns: 100%;
+  }
+
+  /* needs javascript for when the container size is wider than the grid width */
+  .grid.aboveMin {
+    grid-template-columns: repeat(auto-fit, minmax(var(--min), 1fr));
+  }
+
+  /* The Frame
+-----------------------------------------------------------------------*/
+  .frame {
+    padding-bottom: calc(var(--n) / var(--d) * 100%);
+    position: relative;
+  }
+
+  .frame916 {
+    --n: 9;
+    --d: 16;
+  }
+
+  .frame43 {
+    --n: 3;
+    --d: 4;
+  }
+
+  .frame-square {
+    --n: 1;
+    --d: 1;
+  }
+
+  .frame>* {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .frame>img,
+  .frame>video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* The Reel
+-----------------------------------------------------------------------*/
+
+  .reel {
+    --space: 1rem;
+    --itemWidth: auto;
+    --height: auto;
+    --trackColor: lightcoral;
+    --thumbColor: #fff;
+    display: flex;
+    /* ↓ For images, which may be very large or use differing aspect ratios, we may want to set the Reel’s height. */
+    height: var(--height);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-color: var(--thumbColor) var(--trackColor);
+  }
+
+  .reel::-webkit-scrollbar {
+    height: 1rem;
+  }
+
+  .reel::-webkit-scrollbar-track {
+    background-color: var(--trackColor);
+  }
+
+  .reel::-webkit-scrollbar-thumb {
+    background-color: var(--trackColor);
+    background-image: linear-gradient(var(--trackColor) 0,
+        var(--trackColor) 0.25rem,
+        var(--thumbColor) 0.25rem,
+        var(--thumbColor) 0.75rem,
+        var(--trackColor) 0.75rem);
+  }
+
+  .reel>* {
+    flex: 0 0 var(--itemWidth);
+  }
+
+  .reel>img {
+    height: 100%;
+    flex-basis: auto;
+    width: auto;
+  }
+
+  .reel>*+* {
+    margin-left: var(--space);
+  }
+
+  .reel.overflowing {
+    padding-bottom: var(--space);
+  }
+</style>
+
+<body>
+  <div class="container">
+    <h1>Stack</h1>
+    <div class="stack wrapper">
+      <div class="box"></div>
+      <div class="stack wrapper">
+        <div class="box"></div>
+        <div class="box"></div>
+      </div>
+      <div class="box"></div>
+    </div>
+
+    <h1>Box</h1>
+    <div class="box"></div>
+
+    <h1>Center</h1>
+    <div class="center wrapper"></div>
+
+    <h1>Cluster</h1>
+    <div class="cluster">
+      <!-- intermediary wrapper -->
+      <div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+      </div>
+    </div>
+
+    <h1>Sidebar</h1>
+    <div class="sidebar">
+      <!-- intermediary wrapper -->
+      <div>
+        <div class="box"></div>
+        <div class="box"></div>
+      </div>
+    </div>
+
+    <h1>Switcher</h1>
+    <div class="switcher">
+      <!-- intermediary wrapper -->
+      <div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+      </div>
+    </div>
+
+    <h1>Cover</h1>
+    <div class="cover box">
+      <!-- header -->
+      <div>
+        Header
+      </div>
+      <!-- centered element -->
+      <h2 style="text-align: center;">Cover Element</h2>
+      <!-- footer -->
+      <div>
+        Footer
+      </div>
+    </div>
+
+    <h1>Grid</h1>
+    <div class="grid" data-min="15rem">
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+    </div>
+
+    <h1>Frame</h1>
+
+    <h2>16:9</h2>
+    <div class="frame frame916">
+      <div class="box">16:9</div>
+    </div>
+
+    <h2>4:3</h2>
+    <div class="frame frame43">
+      <div class="box">4:3</div>
+    </div>
+
+    <h2>1:1</h2>
+    <div class="frame frame-square">
+      <div class="box">1:1</div>
+    </div>
+
+    <h1>Reel</h1>
+    <div class="reel">
+      <div class="box" style="height: 20em; width: 20em;"></div>
+      <div class="box" style="height: 20em; width: 20em;"></div>
+      <div class="box" style="height: 20em; width: 20em;"></div>
+      <div class="box" style="height: 20em; width: 20em;"></div>
+      <div class="box" style="height: 20em; width: 20em;"></div>
+      <div class="box" style="height: 20em; width: 20em;"></div>
+      <div class="box" style="height: 20em; width: 20em;"></div>
+      <div class="box" style="height: 20em; width: 20em;"></div>
+      <div class="box" style="height: 20em; width: 20em;"></div>
+      <div class="box" style="height: 20em; width: 20em;"></div>
+    </div>
+  </div>
+
+  <script>
+    /* The Grid
+    -----------------------------------------------------------------------*/
+    (function observeGrid() {
+      const gridNode = document.querySelector('.grid');
+      // Feature detect ResizeObserver
+      if ('ResizeObserver' in window) {
+        // Get the min value from data-min="[min]"
+        const min = gridNode.dataset.min;
+
+        // Create a proxy element to measure and convert
+        // the `min` value (which might be em, rem, etc) to `px`
+        const test = document.createElement('div');
+        test.style.width = min;
+        gridNode.appendChild(test);
+        const minToPixels = test.offsetWidth;
+        gridNode.removeChild(test);
+
+        const ro = new ResizeObserver((entries) => {
+          for (let entry of entries) {
+            // Get the element's current dimensions
+            const cr = entry.contentRect;
+            // `true` if the container is wider than the minimum
+            const isWide = cr.width > minToPixels;
+            // toggle the class conditionally
+            gridNode.classList.toggle('aboveMin', isWide);
+          }
+        });
+
+        ro.observe(gridNode);
+      }
+    })();
+
+    /* The Reel
+    -----------------------------------------------------------------------*/
+    (function () {
+      const className = 'reel';
+      const reels = Array.from(document.querySelectorAll(`.${className}`));
+      const toggleOverflowClass = (elem) => {
+        elem.classList.toggle('overflowing', elem.scrollWidth > elem.clientWidth);
+      };
+
+      for (let reel of reels) {
+        if ('ResizeObserver' in window) {
+          new ResizeObserver((entries) => {
+            toggleOverflowClass(entries[ 0 ].target);
+          }).observe(reel);
+        }
+
+        if ('MutationObserver' in window) {
+          new MutationObserver((entries) => {
+            toggleOverflowClass(entries[ 0 ].target);
+          }).observe(reel, { childList: true });
+        }
+      }
+    })();
+  </script>
+
+</body>
+
+
+
+
+</html>
